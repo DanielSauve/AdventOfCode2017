@@ -10,7 +10,6 @@ void main() {
 
 int reallocate(String puzzle) {
   List<int> banks = puzzle.split('\t').map(int.parse).toList();
-  int reallocations = 0;
   Set<String> seen = new Set();
   while (seen.add(banks.toString())) {
     int val = banks.reduce(max);
@@ -21,16 +20,14 @@ int reallocate(String puzzle) {
       banks[index] += 1;
       val--;
     }
-    reallocations += 1;
   }
-  return reallocations;
+  return seen.length;
 }
 
 int loopSize(String puzzle) {
   List<int> banks = puzzle.split('\t').map(int.parse).toList();
-  int reallocations = 0;
   Map<String, int> seen = new Map();
-  while (seen.putIfAbsent(banks.toString(), () => reallocations) == reallocations) {
+  while (seen.putIfAbsent(banks.toString(), () => seen.length) == seen.length - 1) {
     int val = banks.reduce(max);
     int index = banks.indexOf(val);
     banks[index] = 0;
@@ -39,7 +36,6 @@ int loopSize(String puzzle) {
       banks[index] += 1;
       val--;
     }
-    reallocations += 1;
   }
-  return reallocations - seen[banks.toString()];
+  return seen.length - seen[banks.toString()];
 }
