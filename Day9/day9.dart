@@ -8,17 +8,10 @@ void main() {
 }
 
 int calculateScore(String puzzle) {
-  puzzle = puzzle.replaceAll(new RegExp(r'!.'), '');
+  puzzle = puzzle.replaceAll(new RegExp(r'!.'), '').replaceAll(new RegExp(r'<[^>]*>'), '');
   int current = 0;
   int total = 0;
-  bool garbage = false;
   for (String c in puzzle.split('')) {
-    if (garbage) {
-      if (c == ">") {
-        garbage = false;
-      }
-      continue;
-    }
     switch (c) {
       case "{":
         current += 1;
@@ -26,9 +19,6 @@ int calculateScore(String puzzle) {
         break;
       case "}":
         current -= 1;
-        break;
-      case "<":
-        garbage = true;
         break;
     }
   }
