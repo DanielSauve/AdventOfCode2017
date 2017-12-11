@@ -51,8 +51,7 @@ String denseHash(String puzzle) {
     while (i < end) {
       chunk ^= list[i++];
     }
-    String hex = chunk.toRadixString(16);
-    ret += hex.length == 2 ? hex : '0' + hex;
+    ret += chunk.toRadixString(16).padLeft(2, '0');
   }
   return ret;
 }
