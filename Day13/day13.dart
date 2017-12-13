@@ -38,11 +38,13 @@ int delay(String puzzle) {
   while (caught) {
     delay += 1;
     caught = false;
-    firewall.forEach((int key, int val) {
-      if ((delay + key) % (2 * (val - 1)) == 0) {
+    for (int curr = 0; curr <= end; curr++) {
+      if (firewall[curr] != null &&
+          (delay + curr) % (2 * (firewall[curr] - 1)) == 0) {
         caught = true;
+        break;
       }
-    });
+    }
   }
   return delay;
 }
