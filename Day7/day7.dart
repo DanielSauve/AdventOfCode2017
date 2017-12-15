@@ -24,6 +24,7 @@ String findBottom(String puzzle) {
       return program;
     }
   }
+  return '';
 }
 
 wrongWeight(String puzzle) {
