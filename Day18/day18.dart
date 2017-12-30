@@ -64,7 +64,13 @@ int mostRecentFrequency(String puzzle) {
         ip += 1;
         break;
       case 'jgz':
-        if (registers.putIfAbsent(ins[1], () => 0) > 0) {
+        int comp;
+        try {
+          comp = int.parse(ins[1]);
+        } catch (FormatException) {
+          comp = registers.putIfAbsent(ins[1], () => 0);
+        }
+        if (comp > 0) {
           try {
             ip += int.parse(ins[2]);
           } catch (FormatException) {
