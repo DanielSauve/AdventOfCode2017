@@ -26,31 +26,31 @@ int checksum(String puzzle) {
         new State(zeroMove, zeroWrite, zeroNext, oneMove, oneWrite, oneNext);
   }
   for (int i = 0; i < loops; i++) {
+    State currState = states[state];
     if (tape[curr]== 0) {
-      tape[curr] = states[state].zeroWrite;
-      state = states[state].zeroNextState;
-      if (curr == 0 && states[state].zeroMove == -1) {
+      tape[curr] = currState.zeroWrite;
+      state = currState.zeroNextState;
+      if (curr == 0 && currState.zeroMove == -1) {
         tape.insert(0, 0);
-      } else if (curr == tape.length - 1 && states[state].zeroMove == 1) {
+      } else if (curr == tape.length - 1 && currState.zeroMove == 1) {
         tape.add(0);
         curr += 1;
       } else {
-        curr += states[state].zeroMove;
+        curr += currState.zeroMove;
       }
     } else {
-      tape[curr] = states[state].oneWrite;
-      state = states[state].oneNextState;
-      if (curr == 0 && states[state].oneMove == -1) {
+      tape[curr] = currState.oneWrite;
+      state = currState.oneNextState;
+      if (curr == 0 && currState.oneMove == -1) {
         tape.insert(0, 0);
-      } else if (curr == tape.length - 1 && states[state].oneMove == 1) {
+      } else if (curr == tape.length - 1 && currState.oneMove == 1) {
         tape.add(0);
         curr += 1;
       } else {
-        curr += states[state].oneMove;
+        curr += currState.oneMove;
       }
     }
   }
-  print(tape);
   return tape.reduce((int a, b) => a + b);
 }
 
