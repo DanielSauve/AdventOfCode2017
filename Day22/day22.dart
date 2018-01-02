@@ -57,7 +57,6 @@ int countInfectionsEvolved(String puzzle) {
           line.split('').map((String c) => c == '.' ? 0 : 2).toList())
       .toList();
   int i = map.length ~/ 2, j = map[i].length ~/ 2, count = 0, dir = 0;
-  map.forEach(print);
   for (int z = 0; z < 10000000; z++) {
     switch (map[i][j]) {
       case 0:
