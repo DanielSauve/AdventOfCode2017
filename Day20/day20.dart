@@ -63,8 +63,6 @@ int remainingParticles(String puzzle) {
     particles.add([pos, vel, acc]);
   }
   for (int i = 0; i < 1000000; i++) {
-    Set<List<int>> pos = new Set();
-    Set<List<int>> doubles = new Set();
     for (int j = 0; j < particles.length; j++) {
       particles[j][1][0] += particles[j][2][0];
       particles[j][1][1] += particles[j][2][1];
