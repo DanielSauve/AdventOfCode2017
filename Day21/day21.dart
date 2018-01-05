@@ -15,12 +15,13 @@ int doTheThing(String puzzle) {
     List<List<String>> to =
         parts[1].split('/').map((String s) => s.split('')).toList();
     input[from.toString()] = to;
+    input[verticalFlip(from).toString()] = to;
+    input[horizontalFlip(from).toString()] = to;
     for (int i = 0; i < 3; i++) {
       from = rotate(from);
-      if (input.containsKey(from.toString())) {
-        break;
-      }
       input[from.toString()] = to;
+      input[verticalFlip(from).toString()] = to;
+      input[horizontalFlip(from).toString()] = to;
     }
   }
   List<List<String>> start = [
@@ -60,4 +61,31 @@ List<List<String>> rotate(List<List<String>> toRotate) {
     ret[1][1] = toRotate[1][1];
     return ret;
   }
+}
+
+List<List<String>> verticalFlip(List<List<String>> toFlip) {
+  if (toFlip.length == 2) {
+    List<List<String>> ret = new List.generate(2, (_) => new List(2));
+    ret[0][0] = toFlip[1][0];
+    ret[0][1] = toFlip[1][1];
+    ret[1][0] = toFlip[0][0];
+    ret[1][1] = toFlip[0][1];
+    return ret;
+  } else {
+    List<List<String>> ret = new List.generate(3, (_) => new List(3));
+    ret[0][0] = toFlip[2][0];
+    ret[0][1] = toFlip[2][1];
+    ret[0][2] = toFlip[2][2];
+    ret[1][0] = toFlip[1][0];
+    ret[1][1] = toFlip[1][1];
+    ret[1][2] = toFlip[1][2];
+    ret[2][0] = toFlip[0][0];
+    ret[2][1] = toFlip[0][1];
+    ret[2][2] = toFlip[0][2];
+    return ret;
+  }
+}
+
+List<List<String>> horizontalFlip(List<List<String>> toFlip) {
+  return toFlip.map((List<String> row) => row.reversed.toList()).toList();
 }
