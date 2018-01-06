@@ -29,16 +29,39 @@ int doTheThing(String puzzle) {
     ['.', '.', '#'],
     ['#', '#', '#']
   ];
-  for (String key in input.keys) {
-    if (key == listToString(start)) {
-      print(key);
-      input[key].forEach(print);
-    }
-  }
   for (int i = 0; i < 5; i++) {
-    if (i == 0) {
-      start = input[listToString(start)];
-    } else if (start.length % 2 == 0) {} else {}
+    if (start.length % 2 == 0) {
+      int numChunks = start.length * start.length ~/ 4;
+      int chunksPerRow = start.length ~/ 2;
+      List<List<List<String>>> chunks = new List();
+      while (chunks.length < numChunks) {
+        for (int j = 0; j < start.length; j += 2) {
+          for (int k = 0; k < start[j].length; k += 2) {
+            List<List<String>> chunk = new List();
+            chunk.add(start[j].getRange(k, k + 2));
+            chunk.add(start[j + 1].getRange(k, k + 2));
+            chunk = input[listToString(chunk)];
+            chunks.add(chunk);
+          }
+        }
+      }
+    } else {
+      int numChunks = start.length * start.length ~/ 9;
+      int chunksPerRow = start.length ~/ 3;
+      List<List<List<String>>> chunks = new List();
+      while (chunks.length < numChunks) {
+        for (int j = 0; j < start.length; j += 3) {
+          for (int k = 0; k < start[j].length; k += 3) {
+            List<List<String>> chunk = new List();
+            chunk.add(start[j].getRange(k, k + 3));
+            chunk.add(start[j + 1].getRange(k, k + 3));
+            chunk.add(start[j + 2].getRange(k, k + 3));
+            chunk = input[listToString(chunk)];
+            chunks.add(chunk);
+          }
+        }
+      }
+    }
   }
   return start.fold(
       0,
