@@ -38,27 +38,6 @@ int doTheThing(String puzzle) {
       start = start
           .map((List<List<String>> chunk) => input[listToString(chunk)])
           .toList();
-//      List<List<List<String>>> chunks = new List();
-//      while (chunks.length < numChunks) {
-//        for (int j = 0; j < start.length; j += 2) {
-//          for (int k = 0; k < start[j].length; k += 2) {
-//            List<List<String>> chunk = new List();
-//            chunk.add(start[j].getRange(k, k + 2));
-//            chunk.add(start[j + 1].getRange(k, k + 2));
-//            chunk = input[listToString(chunk)];
-//            chunks.add(chunk);
-//          }
-//        }
-//      }
-//      List<List<List<String>>> rows = new List();
-//      for (int j = 0; j < numChunks; j += chunksPerRow) {
-//        rows.add(chunks[j]);
-//        for (int k = j + 1; k < chunksPerRow; k++) {
-//          rows[j][0].addAll(chunks[k][0]);
-//          rows[j][1].addAll(chunks[k][1]);
-//          rows[j][2].addAll(chunks[k][2]);
-//        }
-//      }
     } else {
       List<List<List<String>>> chunks = new List();
       for (List<List<String>> chunk in start) {
@@ -78,41 +57,16 @@ int doTheThing(String puzzle) {
         chunks.addAll([chunk1, chunk2, chunk3, chunk4]);
       }
       start = chunks;
-//      int numChunks = start.length * start.length ~/ 9;
-//      int chunksPerRow = start.length ~/ 3;
-//      List<List<List<String>>> chunks = new List();
-//      while (chunks.length < numChunks) {
-//        for (int j = 0; j < start.length; j += 3) {
-//          for (int k = 0; k < start[j].length; k += 3) {
-//            List<List<String>> chunk = new List();
-//            chunk.add(start[j].getRange(k, k + 3));
-//            chunk.add(start[j + 1].getRange(k, k + 3));
-//            chunk.add(start[j + 2].getRange(k, k + 3));
-//            chunk = input[listToString(chunk)];
-//            chunks.add(chunk);
-//          }
-//        }
-//      }
-//      List<List<List<String>>> rows = new List();
-//      for (int j = 0; j < numChunks; j += chunksPerRow) {
-//        rows.add(chunks[j]);
-//        for (int k = j + 1; k < chunksPerRow; k++) {
-//          rows[j][0].addAll(chunks[k][0]);
-//          rows[j][1].addAll(chunks[k][1]);
-//          rows[j][2].addAll(chunks[k][2]);
-//          rows[j][3].addAll(chunks[k][3]);
-//        }
-//      }
     }
   }
   return start.fold(
       0,
-      (int a, List<List<String>> line) =>
+      (num a, List<List<String>> line) =>
           a +
           line.fold(
               0,
-              (int b, List<String> s) =>
-                  b + s.fold(0, (int c, String s) => s == '#' ? c + 1 : c)));
+              (num b, List<String> s) =>
+                  b + s.fold(0, (num c, String s) => s == '#' ? c + 1 : c)));
 }
 
 List<List<String>> rotate(List<List<String>> toRotate) {
